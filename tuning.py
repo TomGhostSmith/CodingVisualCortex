@@ -7,7 +7,7 @@ import os
 from scipy.stats import zscore
 from scipy.interpolate import interp1d
 from scipy.ndimage import gaussian_filter1d
-from sklearn.manifold import isomap
+from sklearn.manifold import Isomap
 from sklearn.decomposition import PCA
 import utils
 
@@ -78,7 +78,7 @@ def population_distances(sresp, istim):
 
     print(u.shape)
 
-    model = isomap.Isomap(n_components=3).fit(u)
+    model = Isomap(n_components=3).fit(u)
     embedding = model.embedding_
 
     return cc, dtheta_aligned, cbinned, embedding

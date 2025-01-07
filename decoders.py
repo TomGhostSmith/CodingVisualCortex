@@ -7,7 +7,7 @@ import os
 from scipy.stats import zscore
 from scipy.interpolate import interp1d
 from scipy.ndimage import gaussian_filter1d
-from sklearn.manifold import isomap
+from sklearn.manifold import Isomap
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import Lasso, Lars
@@ -415,7 +415,7 @@ def derivative_decoder(istim, sresp, itrain, itest, lam=1, nangle=2*np.pi,
 
     X = sresp[:,itrain]
 
-    if dcdtype is 'regression':
+    if dcdtype == 'regression':
         A = fast_ridge(X, y, lam = lam)
     else:
         A = X @ y

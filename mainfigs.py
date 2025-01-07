@@ -287,7 +287,7 @@ def fig1(dataroot, saveroot, save_figure=False):
     ax.spines['right'].set_visible(False)
     ax.set_ylim(-3,13-3)
     ax.set_xticks([0, 180, 360])
-    ax.set_xlabel('stimulus angle ($^\circ$)')
+    ax.set_xlabel(r'stimulus angle ($^\circ$)')
     ax.set_ylabel('response\n(z-scored)')
     ax.text(-1, .88, string.ascii_lowercase[5], transform=ax.transAxes, size=12)
     #ax.axis('square')
@@ -414,7 +414,7 @@ def fig2(dataroot, saveroot, save_figure=False):
         ax.set_ylim(-1,ymax)
         ax.set_xticks([0, 180, 360])
         if k==2:
-            ax.set_xlabel('stimulus angle ($^\circ$)')
+            ax.set_xlabel(r'stimulus angle ($^\circ$)')
         plt.text(10, ymax, 'SNR = %2.2f'%(SNR[iN[k]]),size=6)
         if k==0:
             ax.set_ylabel('response\n(z-score)')
@@ -430,7 +430,7 @@ def fig2(dataroot, saveroot, save_figure=False):
         if k==0:
             ax.set_ylabel('log-likelihood')
             ax.set_title('trial #%d (test)'%ind_trial,size=6)
-            ax.text(0.8,0.6,'true \n= %2.0f$^\circ$'%(istim[ind_trial]*180/np.pi), transform=ax.transAxes)
+            ax.text(0.8,0.6,'true \n= {:2.0f}'.format(istim[ind_trial]*180/np.pi) + r'$^\circ$', transform=ax.transAxes)
         yp = -1
         if k==2:
             ax.text(0.5, yp, '=', size=14, transform=ax.transAxes, ha='center',fontweight='bold')
@@ -451,8 +451,8 @@ def fig2(dataroot, saveroot, save_figure=False):
     ax.set_xticks([0, 180, 360])
     ax.set_yticks([-.8,-.4])
     ax.set_ylabel('average logL')
-    ax.set_xlabel('angle ($^\circ$)')
-    ax.text(0.8,0.75,'decoded \n= %2.0f$^\circ$'%(apred[itest_trial]*180/np.pi),color=berry, size=6, transform=ax.transAxes)
+    ax.set_xlabel(r'angle ($^\circ$)')
+    ax.text(0.8,0.75,'decoded \n= %2.0f'%(apred[itest_trial]*180/np.pi) + r'$^\circ$',color=berry, size=6, transform=ax.transAxes)
 
     ##### SUBPLOT SETTINGS
     xpos = [.52, .8]
@@ -477,7 +477,7 @@ def fig2(dataroot, saveroot, save_figure=False):
     nb=plt.hist(error* 180/np.pi, np.linspace(0,25, 21), color = berry)
     merror = np.median(np.abs(error))*180/np.pi
     ax.scatter(merror, nb[0].max()*1.05, marker='v',color=[0,.0,0])
-    ax.text(merror-1, nb[0].max()*1.13, '%2.2f$^\circ$ = median error'%merror,fontweight='bold')
+    ax.text(merror-1, nb[0].max()*1.13, '%2.2f'%merror  + r'$^\circ$ = median error',fontweight='bold')
     ax.set_xlabel(r'absolute angle error ($^\circ$)')
     ax.set_ylabel('trial counts')
     ax.set_xlim([0,20])
@@ -528,7 +528,7 @@ def fig2(dataroot, saveroot, save_figure=False):
     ax.scatter(180/np.pi * (istim[itest] - apred1), 180/np.pi * (istim[itest] -apred2), s=1, color = berry)
     ax.set_ylim([-25, 25])
     ax.set_xlim([-25, 25])
-    ax.text(-.3,ylab,'Decoding errors ($^\circ$)',size=6, transform=ax.transAxes)
+    ax.text(-.3,ylab,r'Decoding errors ($^\circ$)',size=6, transform=ax.transAxes)
     ax.set_ylabel('population 2', color = col2)
     ax.set_xlabel('population 1', color = col1)
     ax.tick_params(axis='y', labelcolor=col2)
@@ -642,7 +642,7 @@ def fig3(dataroot, saveroot, save_figure=False):
         ax.plot(vx[n], vy[n], 'o',color=cmap[n], ms=1)
     theta = np.linspace(0,2*np.pi,181)[:180]
     ax.scatter(vshift.max(),(1-thstim/2*np.pi)*1-.1, marker='*',color=[0,.5,0],s=40,zorder=10)
-    ax.text(7.1*np.pi,1-thstim/2*np.pi-.2,'decoded \n= %2.0f$^\circ$'%(istim[ind_trial]*180/np.pi), color=[0,.5,0], size=6)
+    ax.text(7.1*np.pi,1-thstim/2*np.pi-.2,'decoded \n= %2.0f'%(istim[ind_trial]*180/np.pi) + r'$^\circ$', color=[0,.5,0], size=6)
     ax.text(.71, .5,'super-neurons', rotation=270,verticalalignment='center',size=6, transform=ax.transAxes)
     ax.text(.91, .98,'response to\ntrial #%d'%ind_trial,horizontalalignment='center',size=6, transform=ax.transAxes)
     ax.text(.15, .98,'train\ntargets', horizontalalignment='center',size=6, transform=ax.transAxes)
@@ -670,7 +670,7 @@ def fig3(dataroot, saveroot, save_figure=False):
     nb=plt.hist(errorLin* 180/np.pi, np.linspace(0,25, 21), color = grn)
     merror = np.median(np.abs(errorLin))*180/np.pi
     ax.scatter(merror, nb[0].max()*1.05, marker='v',color=[0,.0,0])
-    ax.text(merror-2, nb[0].max()*1.13, '%2.2f$^\circ$ = median error'%merror,fontweight='bold')
+    ax.text(merror-2, nb[0].max()*1.13, '%2.2f'%merror + r'$^\circ$ = median error',fontweight='bold')
     ax.set_xlabel(r'absolute angle error ($^\circ$)')
     ax.set_ylabel('trial counts')
     ax.set_xlim([0,20])
@@ -705,12 +705,12 @@ def fig3(dataroot, saveroot, save_figure=False):
         if k==0:
             ax.text(-.3,1.1,'Asymptotics: neurons',size=6, transform=ax.transAxes)
             ax.text(.75,.6, r'$\alpha + \frac{\beta}{\sqrt{N}}$', transform=ax.transAxes,size=8)
-            ax.text(.75,.3, r'$\beta$=%2.0f$^{\circ}$'%beta, transform=ax.transAxes)
+            ax.text(.75,.3, r'$\beta$=' + '%2.0f'%beta + r'$^{\circ}$', transform=ax.transAxes)
         else:
             ax.text(-.3,1.1,'Asymptotics: trials',size=6, transform=ax.transAxes)
             ax.text(.75,.6, r'$\alpha + \frac{\gamma}{\sqrt{T}}$', transform=ax.transAxes,size=8)
-            ax.text(.75,.3, r'$\gamma$=%2.0f$^{\circ}$'%beta, transform=ax.transAxes)
-        ax.text(.75,.4,r'$\alpha$=%2.2f$^{\circ}$'%alpha, transform=ax.transAxes)
+            ax.text(.75,.3, r'$\gamma$=' + '%2.0f' % beta + r'$^{\circ}$', transform=ax.transAxes)
+        ax.text(.75,.4,r'$\alpha$=' + '%2.2f'%alpha + r'$^{\circ}$', transform=ax.transAxes)
         ax.semilogx(mux, muy, '-o', color=grn, linewidth=1, markersize=2)
         ax.semilogx(mux, ypred, '--', lw=1.5, color='k')
         ax.set_ylim([0, 15])
@@ -753,9 +753,9 @@ def fig4(dataroot, saveroot, save_figure=False):
         gratings = np.cos(xx*np.cos(angs[k]) + yy*np.sin(angs[k]))
         ax.imshow(np.sign(gratings), cmap=plt.get_cmap('gray'))
         ax.axis('off')
-        ax.text(-.7, .5, 'trial %d: %d$^\circ$'%(k+1,ang[k]), transform=ax.transAxes)
+        ax.text(-.7, .5, 'trial %d: %d'%(k+1,ang[k]) + r'$^\circ$', transform=ax.transAxes)
         if k==0:
-            ax.text(-0.6,1.23, 'Angle > 45$^\circ$?', transform=ax.transAxes, fontsize=8)
+            ax.text(-0.6,1.23, r'Angle > 45$^\circ$?', transform=ax.transAxes, fontsize=8)
             ax.text(-.9, 1.23, string.ascii_lowercase[iplot], transform=ax.transAxes,
                     size=12)
         else:
@@ -828,13 +828,13 @@ def fig4(dataroot, saveroot, save_figure=False):
                 transform = ax.transAxes, color=col)
         ax.text(.05, .85 , 'training set=\n830 trials/deg', transform=ax.transAxes,
                  color=col)
-        ax.text(p75+.1, 2, '%2.2f$^\circ$=\ndiscrimination\nthreshold'%p75, fontsize=6)
+        ax.text(p75+.1, 2, '%2.2f'%p75+ r'$^\circ$' + '=\ndiscrimination\nthreshold', fontsize=6)
         ax.set_ylim([-1, 101])
         ax.set_yticks([0,25,50,75,100])
         ax.set_xlim([-2, 2])
 
         ax.set_ylabel('% "choose right"')#,fontsize=14)
-        ax.set_xlabel('angle difference  ($^\circ$)')#,fontsize=14)
+        ax.set_xlabel(r'angle difference  ($^\circ$)')#,fontsize=14)
         #ax.set_position(ax.get_position().bounds - np.array([.13, -.2, 0.04, 0.04]))
         ax.text(-.3, 1.05, string.ascii_lowercase[iplott[kk]], transform=ax.transAxes,
                     size=12)
@@ -885,11 +885,11 @@ def fig4(dataroot, saveroot, save_figure=False):
                     dyy=0.2
                     ax.text(.5,.85+dyy, r'$\alpha + \frac{\beta}{\sqrt{N}} + \frac{\gamma}{\sqrt{T}}$',
                             transform=ax.transAxes,size=8)
-                    ax.text(.8,.6+dyy,r'$\alpha$=%2.2f$^{\circ}$'%par[0], transform=ax.transAxes)
-                    ax.text(.8,.48+dyy, r'$\beta$=%2.0f$^{\circ}$'%par[1], transform=ax.transAxes)
-                    ax.text(.8,.36+dyy, r'$\gamma$=%2.0f$^{\circ}$'%par[2], transform=ax.transAxes)
+                    ax.text(.8,.6+dyy,r'$\alpha$=' + '%2.2f'%par[0] + r'$^{\circ}$', transform=ax.transAxes)
+                    ax.text(.8,.48+dyy, r'$\beta$=' + '%2.0f'%par[1] + r'$^{\circ}$', transform=ax.transAxes)
+                    ax.text(.8,.36+dyy, r'$\gamma$=' + '%2.0f'%par[2] + r'$^{\circ}$', transform=ax.transAxes)
                     #ax.text(0.05,.05, 'asymptote', transform=ax.transAxes, fontsize=6, color='r')
-                    ax.set_ylabel('discrimination\nthreshold ($^{\circ}$)')
+                    ax.set_ylabel('discrimination\n' + r'threshold ($^{\circ}$)')
                 else:
                     ax.semilogx(nx, ypred[0], '--', lw=1.5, color='k')
                 #ax.plot([nx[0],nx[-1]], [par[0], par[0]], color='r', lw=0.5)
@@ -974,14 +974,14 @@ def fig5(dataroot, saveroot, save_figure=False):
         ax.fill_between(drange, 100*pn - 100*ps, 100*pn + 100*ps, facecolor=grn, alpha=0.5,zorder=10)
         ax.plot(p75*np.array([1,1]), [-1,75], '--', color='k')
         ax.plot([-25,p75], [75,75], '--', color='k')
-        ax.text(p75+5, 25, '%2.2f$^\circ$'%p75, fontweight='bold')
+        ax.text(p75+5, 25, '%2.2f'%p75 + r'$^\circ$', fontweight='bold')
         ax.set_xlim(-25,25)
         ax.set_ylim(-1,101)
         ax.set_yticks([0,25,50,75,100])
         # labels
         if k==0:
             ax.set_ylabel('% "choose right"')
-            ax.set_xlabel('angle difference  ($^\circ$)')
+            ax.set_xlabel(r'angle difference  ($^\circ$)')
             ax.text(-.5, 1.25, string.ascii_lowercase[iplot], transform=ax.transAxes,  size=12)
             #ax.text(, 1.3, '10 trials/deg', transform=ax.transAxes,  size=6)
             iplot+=1
@@ -1092,7 +1092,7 @@ def fig6(dataroot, saveroot, save_figure=False):
     ax.set_ylabel('percent correct')
 
     ax = fig.add_axes([.35, .845, .15, .075])
-    ax.set_xlabel('stimulus angle ($^\circ$)')
+    ax.set_xlabel(r'stimulus angle ($^\circ$)')
     ax.set_xlim([-30, 30])
     ax.set_xticks([-20, -5, 5, 20])
     ax.spines['left'].set_visible(False)
@@ -1104,7 +1104,7 @@ def fig6(dataroot, saveroot, save_figure=False):
     ax.text(10, .25, 'right\nchoice')
 
     ax = fig.add_axes([.6, .845, .15, .075])
-    ax.set_xlabel('stimulus angle ($^\circ$)')
+    ax.set_xlabel(r'stimulus angle ($^\circ$)')
     ax.set_xlim([-2, 2])
     ax.set_xticks([-2, -1, 0, 1, 2])
     ax.spines['left'].set_visible(False)
@@ -1119,7 +1119,7 @@ def fig6(dataroot, saveroot, save_figure=False):
     ax = fig.add_axes([.6,  .2, .15, .15 * 3/2])
     for j in range(P.shape[1]):
         ax.plot(drange, 100*P[:,j], 'o', color = col2[j])
-    ax.set_xlabel('angle difference ($^\circ$)')
+    ax.set_xlabel(r'angle difference ($^\circ$)')
     ax.set_ylabel('% "choose right"')
     ax.set_ylim([0, 1])
     ax.set_yticks([0, 25, 50, 75, 100])
@@ -1191,7 +1191,7 @@ def fig6(dataroot, saveroot, save_figure=False):
 #     ax.add_patch(Polygon([[X[0,0]-3e2,Y[0,0]-2e3],[X[0,0]-3e2,Y[0,pp]],
 #                          [X[pp,0],Y[0,0]-2e3]], #[X[pp,0],Y[0,pp]]
 #                          fill=None, lw=2, ls='--'))
-#     ax.text(-.35,1.03,'discrimination threshold ($^\circ$)', fontsize=6, transform=ax.transAxes)
+#     ax.text(-.35,1.03,r'discrimination threshold ($^\circ$)', fontsize=6, transform=ax.transAxes)
 #     ax.set_xscale('log')
 #     ax.set_yscale('log')
 #     ax.set_xlabel('trials / deg ')

@@ -7,7 +7,7 @@ import os
 from scipy.stats import zscore
 from scipy.interpolate import interp1d
 from scipy.ndimage import gaussian_filter1d
-from sklearn.manifold import isomap
+from sklearn.manifold import Isomap
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import Lasso, Lars
@@ -26,13 +26,13 @@ def weak_learning(data, istim, itrain, itest, dcdtype='best_neuron'):
     X /=sd[:,np.newaxis]
     
     xlist = []    
-    if dcdtype is 'best_neuron':
+    if dcdtype == 'best_neuron':
         A = np.zeros(NN,)
         cc = X @ zscore(y[itrain])/itrain.size
         ix = np.argmax(np.abs(cc))
         A[ix] = np.sign(cc[ix])       
         xlist.append(cc)
-    elif dcdtype is 'one_shot':
+    elif dcdtype == 'one_shot':
         ipos = itrain[y[itrain]>4*np.pi/36]
         ineg = itrain[y[itrain]<-4*np.pi/36]
         ipos = np.random.choice(ipos, (1,))
@@ -41,7 +41,7 @@ def weak_learning(data, istim, itrain, itest, dcdtype='best_neuron'):
         A = np.squeeze(A)        
         xlist.append(data[:,ipos])
         xlist.append(data[:,ineg])
-    elif dcdtype is 'random_projection':
+    elif dcdtype == 'random_projection':
         A = np.random.randn(NN, 100)
         xproj = A.T @ X
         xproj = zscore(xproj, axis=1)
@@ -75,17 +75,17 @@ def perceptron_learning(sresp, istim, itrain, itest, Ltype = 'sign', lam = 0, et
     D = istim[itest]
     
     for j in range(X.shape[1]):                
-        if Ltype is 'regression':
+        if Ltype == 'regression':
             if np.isin(j, nstim):                
                 w = decoders.fast_ridge(X[:, :j+1], ylabel[:j+1], lam=lam)        
-        if Ltype is not 'regression':
+        if Ltype != 'regression':
             ypred = w.T @ X[:,j]
             #ypred = 1./(1+np.exp(-ypred))
             #dsigm  = ypred * (1-ypred)    
 
-            if Ltype is 'Hebb':
+            if Ltype == 'Hebb':
                 err = ylabel[j]
-            elif Ltype is 'full':
+            elif Ltype == 'full':
                 err = ylabel[j] - ypred
             else:            
                 err = (ylabel[j] - np.sign(ypred))/2

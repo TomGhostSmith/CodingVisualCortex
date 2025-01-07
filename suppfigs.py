@@ -36,7 +36,7 @@ def linear_decoders(dataroot, saveroot, save_figure=False):
         j=inds[idx[k]][0]
         #for j in range(len(inds[k])):
         ax.scatter(stims[j]*180/np.pi, errors[j]*180/np.pi, s=0.1, color=(0,.5,0))
-        ax.text(0.5,1, 'median error \n= %2.2f$^\circ$'%E[j],ha='center', transform=ax.transAxes)
+        ax.text(0.5,1, 'median error \n= %2.2f'%E[j],ha='center' + r'$^\circ$', transform=ax.transAxes)
         if k==0:
             ax.set_xlabel(r'stimulus angle ($^\circ$)')
             ax.set_ylabel(r'decoding error ($^\circ$)')
@@ -73,8 +73,8 @@ def linear_decoders(dataroot, saveroot, save_figure=False):
         ax.set_yticks([0,1,2,3])
         if k==0:
             ax.set_title('binned, all recordings')
-            ax.set_ylabel('abs error ($^\circ$)')
-            ax.set_xlabel('stimulus angle ($^\circ$)')
+            ax.set_ylabel(r'abs error ($^\circ$)')
+            ax.set_xlabel(r'stimulus angle ($^\circ$)')
             ax.text(-.9,1.2, 'c', size=12, transform=ax.transAxes)
             ax.text(-.9,3.4, 'b', size=12, transform=ax.transAxes)
             ax.text(-.9,4.6, 'a', size=12, transform=ax.transAxes)
@@ -220,10 +220,10 @@ def stim_props(saveroot, save_figure=False):
         ax.set_ylim(0,.35)
         ax.set_xticks([0,180,360])
         if i==0:
-            ax.set_xlabel('preferred angle ($^\circ$)')
+            ax.set_xlabel(r'preferred angle ($^\circ$)')
             ax.set_title('static gratings        ', fontstyle='italic')
         else:
-            ax.set_xlabel('preferred direction ($^\circ$)')
+            ax.set_xlabel(r'preferred direction ($^\circ$)')
             ax.set_title('drifting gratings      ', fontstyle='italic')
         ax.set_ylabel('fraction')
         ax.text(-.4,1.05,string.ascii_lowercase[iplot],size=12,transform=ax.transAxes)
@@ -273,9 +273,9 @@ def stim_props(saveroot, save_figure=False):
             hwhm[k], angle_plus, angle_minus = tuning.halfwidth_halfmax(tbins, tun, theta_pref[k])
         ax.set_xticks([0,180,360])
         if i==0:
-            ax.set_xlabel('stimulus angle ($^\circ$)')
+            ax.set_xlabel(r'stimulus angle ($^\circ$)')
         else:
-            ax.set_xlabel('stimulus direction ($^\circ$)')
+            ax.set_xlabel(r'stimulus direction ($^\circ$)')
         ax.set_yticks([0,.5,1.0])
         ax.set_ylim(-.25,1.1)
         ax.text(-.4,1.05,string.ascii_lowercase[iplot],size=12,transform=ax.transAxes)
@@ -308,7 +308,7 @@ def stim_props(saveroot, save_figure=False):
     ax.fill_between(tbins, nc-cerr, nc+cerr, color='k', alpha=0.5)
     ax.set_xticks([0,90,180,270,360])
     ax.set_xticklabels(['-90','0','90','180','270'])
-    ax.set_xlabel('stimulus angle difference ($^\circ$)')
+    ax.set_xlabel(r'stimulus angle difference ($^\circ$)')
     ax.text(-.7, 1.05, 'h', size=12, transform=ax.transAxes)
     ax.text(1.8, 1.05, 'i', size=12, transform=ax.transAxes)
     ax.set_ylabel('correlation between \nneural patterns')
@@ -354,10 +354,10 @@ def stim_distances(saveroot, save_figure=False):
         ax.set_ylim(0,.35)
         ax.set_xticks([0,180,360])
         if i==0:
-            ax.set_xlabel('preferred angle ($^\circ$)')
+            ax.set_xlabel(r'preferred angle ($^\circ$)')
             ax.set_title('static gratings        ', fontstyle='italic')
         else:
-            ax.set_xlabel('preferred direction ($^\circ$)')
+            ax.set_xlabel(r'preferred direction ($^\circ$)')
             ax.set_title('drifting gratings      ', fontstyle='italic')
         ax.set_ylabel('fraction')
         ax.text(-.4,1.05,string.ascii_lowercase[i*4],size=12,transform=ax.transAxes)
@@ -403,7 +403,7 @@ def stim_distances(saveroot, save_figure=False):
                         else:
                             ax.text(1.2, .9, 'pref directions:', ha='right', transform=ax.transAxes)
                     if k%2==0:
-                        ax.text(1.2,.8-k*.05, '%d$^\circ$'%(int(theta_pref[k]*180/np.pi)), ha='right',
+                        ax.text(1.2,.8-k*.05, '%d'%(int(theta_pref[k]*180/np.pi)) + r'$^\circ$', ha='right',
                                 transform=ax.transAxes, color=cmap[k])
                 elif j==1:
                     tun = avg_tuning[k].mean(axis=-1)
@@ -426,9 +426,9 @@ def stim_distances(saveroot, save_figure=False):
                 hwhm[k], angle_plus, angle_minus = tuning.halfwidth_halfmax(tbins, tun, theta_pref[k])
             ax.set_xticks([0,180,360])
             if i==0:
-                ax.set_xlabel('stimulus angle ($^\circ$)')
+                ax.set_xlabel(r'stimulus angle ($^\circ$)')
             else:
-                ax.set_xlabel('stimulus direction ($^\circ$)')
+                ax.set_xlabel(r'stimulus direction ($^\circ$)')
             ax.set_yticks([0,.5,1.0])
             ax.set_ylim(-.25,1.1)
             ax.text(-.4,1.05,string.ascii_lowercase[j+i*4+1],size=12,transform=ax.transAxes)
@@ -460,7 +460,7 @@ def stim_distances(saveroot, save_figure=False):
     ax.fill_between(tbins, nc-cerr, nc+cerr, color='k', alpha=0.5)
     ax.set_xticks([0,90,180,270,360])
     ax.set_xticklabels(['-90','0','90','180','270'])
-    ax.set_xlabel('stimulus angle difference ($^\circ$)')
+    ax.set_xlabel(r'stimulus angle difference ($^\circ$)')
     ax.text(-.7, 1.05, 'J', size=12, transform=ax.transAxes)
     ax.text(1.8, 1.05, 'K', size=12, transform=ax.transAxes)
     ax.set_ylabel('correlation between \nneural patterns')
@@ -573,7 +573,7 @@ def pc_errors(dataroot, saveroot, save_figure=False):
     nb=plt.hist(error* 180/np.pi, np.linspace(0,25, 21), color = grn)
     merror = np.median(np.abs(error))*180/np.pi
     ax.scatter(merror, nb[0].max()*1.05, marker='v',color=[0,.0,0])
-    ax.text(merror-2, nb[0].max()*1.13, '%2.2f$^\circ$ = median error'%merror,fontweight='bold')
+    ax.text(merror-2, nb[0].max()*1.13, '%2.2f'%merror + r'$^\circ$' + ' = median error',fontweight='bold')
     ax.set_xlabel(r'absolute angle error ($^\circ$)')
     ax.set_ylabel('trial counts')
     ax.set_xlim([0,20])
@@ -630,7 +630,7 @@ def pc_errors(dataroot, saveroot, save_figure=False):
     nb=plt.hist(errors_ex* 180/np.pi, np.linspace(0,25, 21), color = grn)
     merror = np.median(np.abs(errors_ex))*180/np.pi
     ax.scatter(merror, nb[0].max()*1.05, marker='v',color=[0,.0,0])
-    ax.text(merror-2, nb[0].max()*1.13, '%2.2f$^\circ$ = median error'%merror,fontweight='bold')
+    ax.text(merror-2, nb[0].max()*1.13, '%2.2f'%merror + r'$^\circ$' + '= median error',fontweight='bold')
     ax.set_xlabel(r'absolute angle error ($^\circ$)')
     ax.set_ylabel('trial counts')
     ax.set_xlim([0,20])
@@ -667,8 +667,8 @@ def pc_errors(dataroot, saveroot, save_figure=False):
         ax.scatter(atrues[k], apreds[k], color=cmap[k], s=3, marker='.', alpha=0.5, edgecolors='none')
         ax.text(1.3,.0+k*.1, '%d'%nPC[k], transform=ax.transAxes, color=cmap[k], ha='right')
     ax.text(1.3,.0+(k+1)*.1, '# of PCs', transform=ax.transAxes, color='k', ha='right')
-    ax.set_xlabel('true angle ($^\circ$)')
-    ax.set_ylabel('decoded angle ($^\circ$)')
+    ax.set_xlabel(r'true angle ($^\circ$)')
+    ax.set_ylabel(r'decoded angle ($^\circ$)')
     ax.set_xticks([0, 180, 360])
     ax.set_yticks([0, 180, 360])
     ax.text(labx, laby,string.ascii_lowercase[iplot],size=12, transform=ax.transAxes)
@@ -685,7 +685,7 @@ def pc_errors(dataroot, saveroot, save_figure=False):
     ax.semilogx(nPC, dlin['E'][0,0,:].mean(axis=-1) * np.ones(nPC.shape),'--', color='k', lw=1)
     ax.text(0.1,0.04, 'all neurons', transform=ax.transAxes)
     ax.set_xlabel('number of PCs')
-    ax.set_ylabel('decoding error ($^\circ$)')
+    ax.set_ylabel(r'decoding error ($^\circ$)')
     ax.set_xticks(nPC[::2])
     ax.set_xticklabels(['4', '16','64', '256', '1024', '4096'], size=4)
     ax.set_xlim(nPC[0]-.5,nPC[-1]+1300)
@@ -738,11 +738,11 @@ def discr_all(saveroot, save_figure=False):
         ax.scatter(drange, 100*p, color = cols[0],s=4)
         ax.plot(p75*np.array([1,1]), [-1,75], '--', color='k')
         ax.plot([-25,p75], [75,75], '--', color='k')
-        ax.text(p75+5, 25, '%2.2f$^\circ$'%p75, fontweight='bold')
+        ax.text(p75+5, 25, '%2.2f'%p75 + r'$^\circ$', fontweight='bold')
         ax.set_xlim(-25,25)
         ax.set_xticks([-20,20])
         ax.set_ylim(-4,103)
-        ax.set_xlabel('stimulus angle ($^\circ$)')
+        ax.set_xlabel(r'stimulus angle ($^\circ$)')
         ax.set_ylabel('% "choose right"')
         ax.set_title(ttl[k], size=6)
         ax.text(-1,1.2, string.ascii_lowercase[k], size=12, transform=ax.transAxes)
@@ -778,8 +778,8 @@ def spont_sub(saveroot, save_figure=False):
         ax.scatter(E[inds[k]], Es[inds[k]], s=3, color=cmap[k],zorder=10)
         ax.text(1,.8-k*.1,sstr[k],transform=ax.transAxes,color=cmap[k])
     ax.plot([-5,5],[-5,5],color='k',zorder=0)
-    ax.set_xlabel('decoding error ($^\circ$)')
-    ax.set_ylabel('decoding error spont subtracted ($^\circ$)')
+    ax.set_xlabel(r'decoding error ($^\circ$)')
+    ax.set_ylabel(r'decoding error spont subtracted ($^\circ$)')
     ax.set_xlim([0.7,2])
     ax.set_ylim([0.7,2])
 
